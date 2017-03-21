@@ -31,6 +31,23 @@ var albumMarconi = {
     ]
 };
 
+// Third Example Album
+
+var albumDaVinci = {
+    title: 'The Engineer',
+    artist: 'Leonardo da Vinci',
+    label: 'Renaissance',
+    year: '1500',
+    albumArtUrl: 'assets/images/album_covers/03.png',
+    songs: [
+        { title: 'Flying Machine', duration: '2:01'},
+        { title: 'Armoured Car', duration: '3:01'},
+        { title: 'Ideal City', duration: '5:01'},
+        { title: 'Robotic Knight', duration: '1:01'},
+        { title: 'Revolving Bridge', duration: '2:31'}
+    ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
       '<tr class="album-view-song-item">'
@@ -44,12 +61,15 @@ var createSongRow = function(songNumber, songName, songLength) {
         
 };
 
+// albumImage IS NOW GLOBAL VARIABLE
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+
 var setCurrentAlbum = function(album) {
     // #1
     var albumTitle = document.getElementsByClassName('album-view-title')[0];
     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
+    // var albumImage = document.getElementsByClassName('album-cover-art')[0];
     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
     
     // #2
@@ -69,4 +89,17 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
-};
+    
+    var albumsAvailable = [albumMarconi, albumDaVinci, albumPicasso];
+    var i = 0;
+    var albumChanger = function() {
+        setCurrentAlbum(albumsAvailable[i]);
+        i++;
+        if (i == albumsAvailable.length) {
+            i = 0;
+        }
+    }
+    
+    albumImage.addEventListener("click", albumChanger);
+}; 
+
